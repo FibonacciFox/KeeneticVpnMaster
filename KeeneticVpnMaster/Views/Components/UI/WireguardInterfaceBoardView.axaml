@@ -7,48 +7,33 @@
              x:Class="KeeneticVpnMaster.Views.Components.UI.WireguardInterfaceBoardView"
              x:DataType="ui:WireguardInterfaceBoardViewModel">
 
-    <!-- Устанавливаем контекст данных для ViewModel -->
     <UserControl.DataContext>
         <ui:WireguardInterfaceBoardViewModel/>
     </UserControl.DataContext>
 
-    <!-- Основной контейнер, оформленный в стиле SukiUI -->
     <suki:GroupBox Margin="20">
         <suki:GroupBox.Header>
-            <!-- Заголовок блока -->
             <TextBlock FontSize="24" FontWeight="Bold">Интерфейсы Wireguard</TextBlock>
         </suki:GroupBox.Header>
 
-        <!-- Основная сетка с разметкой содержимого -->
-        <Grid RowDefinitions="Auto,200 ,Auto">
-            
-            <!-- Информационный блок о WireGuard -->
+        <Grid RowDefinitions="Auto,200,Auto">
             <TextBlock Grid.Row="0"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Top"
                        MinHeight="50"
                        TextWrapping="Wrap">
-                WireGuard — это чрезвычайно простой, но быстрый и современный VPN, который использует современную криптографию.
-                Он работает быстрее и качественнее, чем OpenVPN и IKEv2 — протоколы, считающиеся лучшими на сегодняшний день.
+                WireGuard — это чрезвычайно простой, но быстрый и современный VPN, использующий передовые криптографические алгоритмы.
             </TextBlock>
             
-            <!-- Карточка с таблицей -->
-            <suki:GlassCard Padding="0,10,0,0"
-                            IsAnimated="False"
-                            CornerRadius="0"
-                            Grid.Row="1">
-                
-                <!-- Таблица DataGrid -->
+            <suki:GlassCard Padding="0,10,0,0" IsAnimated="False" CornerRadius="0" Grid.Row="1">
                 <DataGrid AutoGenerateColumns="False"
                           GridLinesVisibility="All"
                           ItemsSource="{Binding WireGuardShowInterfaces}"
                           SelectedItem="{Binding SelectedInterface}"
                           IsReadOnly="True">
-                    
-                    <!-- Стилизация заголовков таблицы -->
                     <DataGrid.Styles>
                         <Style Selector="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment"  Value="Center"/> 
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/> 
                             <Setter Property="Height" Value="40"/>
                             <Setter Property="Padding" Value="20,0,0,0"/>
                         </Style>
@@ -58,8 +43,7 @@
                                     <ContextMenu>
                                         <MenuItem Header="Редактировать"
                                                   i:MenuItem.Icon="mdi-file-edit"
-                                                  Command="{Binding EditCommand}" 
-                                                  CommandParameter="{x:True}"/>
+                                                  Command="{Binding EditCommand}" />
                                         <MenuItem Header="-" />
                                         <MenuItem Header="Удалить"
                                                   i:MenuItem.Icon="mdi-delete-forever"/>
@@ -69,8 +53,9 @@
                         </Style>
                     </DataGrid.Styles>
 
+                    <!-- Определение колонок DataGrid -->
                     <DataGrid.Columns>
-                        <!-- Колонка "Подключение" с переключателем -->
+                        <!-- Колонка с переключателем подключения -->
                         <DataGridTemplateColumn Header="Подключение" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -83,7 +68,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Колонка "ID" -->
+                        <!-- Колонки для остальных данных -->
                         <DataGridTemplateColumn Header="ID" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -92,7 +77,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Колонка "Index" -->
                         <DataGridTemplateColumn Header="Index" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -101,7 +85,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Колонка "Адрес" -->
                         <DataGridTemplateColumn Header="Адрес" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -114,7 +97,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Колонка "Статус" с иконками -->
                         <DataGridTemplateColumn Header="Статус" Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -126,7 +108,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Колонка "Получено" -->
                         <DataGridTemplateColumn Header="Получено" Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -137,7 +118,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Колонка "Отправлено" -->
                         <DataGridTemplateColumn Header="Отправлено" Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -148,7 +128,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Колонка "Адрес и порт пира" -->
                         <DataGridTemplateColumn Header="Адрес и порт пира" Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -161,7 +140,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!-- Колонка "Uptime" -->
                         <DataGridTemplateColumn Header="Uptime" Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -175,12 +153,10 @@
                 </DataGrid>
             </suki:GlassCard>
 
-            <!-- Кнопки управления -->
             <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
                 <Button Classes="Basic"> Добавить подключение</Button>
                 <Button Classes="Basic"> Загрузить из файла</Button>
             </StackPanel>
-
         </Grid>
     </suki:GroupBox>
 </UserControl>

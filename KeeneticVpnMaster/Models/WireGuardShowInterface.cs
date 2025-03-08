@@ -1,75 +1,69 @@
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using System.Windows.Input;
-using ReactiveUI;
+using KeeneticVpnMaster.Helpers;
 
 namespace KeeneticVpnMaster.Models
 {
-    public class WireGuardShowInterface : INotifyPropertyChanged
+    public class WireGuardShowInterface : ObservableObject
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null!) 
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
         [JsonPropertyName("id")]
-        public string Id { get; set; }
-        
+        public string Id { get; set; } = string.Empty;
+
         private int _index;
         [JsonPropertyName("index")]
         public int Index
         {
             get => _index;
-            set { _index = value; OnPropertyChanged(); }
+            set => SetProperty(ref _index, value);
         }
 
-        private string _interfaceName;
+        private string _interfaceName = string.Empty;
         [JsonPropertyName("interface-name")]
         public string InterfaceName
         {
             get => _interfaceName;
-            set { _interfaceName = value; OnPropertyChanged(); }
+            set => SetProperty(ref _interfaceName, value);
         }
 
-        private string _description;
+        private string _description = string.Empty;
         [JsonPropertyName("description")]
         public string Description
         {
             get => _description;
-            set { _description = value; OnPropertyChanged(); }
+            set => SetProperty(ref _description, value);
         }
 
-        private string _type;
+        private string _type = string.Empty;
         [JsonPropertyName("type")]
         public string Type
         {
             get => _type;
-            set { _type = value; OnPropertyChanged(); }
+            set => SetProperty(ref _type, value);
         }
 
-        private string _link;
+        private string _link = string.Empty;
         [JsonPropertyName("link")]
         public string Link
         {
             get => _link;
-            set { _link = value; OnPropertyChanged(); }
+            set => SetProperty(ref _link, value);
         }
 
-        private string _connected;
+        private string _connected = string.Empty;
         [JsonPropertyName("connected")]
         public string Connected
         {
             get => _connected;
-            set { _connected = value; OnPropertyChanged(); }
+            set => SetProperty(ref _connected, value);
         }
 
-        private string _state;
+        private string _state = string.Empty;
         [JsonPropertyName("state")]
         public string State
         {
             get => _state;
-            set { _state = value; OnPropertyChanged(); }
+            set => SetProperty(ref _state, value);
         }
 
         private int _mtu;
@@ -77,23 +71,23 @@ namespace KeeneticVpnMaster.Models
         public int Mtu
         {
             get => _mtu;
-            set { _mtu = value; OnPropertyChanged(); }
+            set => SetProperty(ref _mtu, value);
         }
 
-        private string _address;
+        private string _address = "-";
         [JsonPropertyName("address")]
         public string Address
         {
             get => _address;
-            set { _address = value; OnPropertyChanged(); }
+            set => SetProperty(ref _address, value);
         }
 
-        private string _mask;
+        private string _mask = string.Empty;
         [JsonPropertyName("mask")]
         public string Mask
         {
             get => _mask;
-            set { _mask = value; OnPropertyChanged(); }
+            set => SetProperty(ref _mask, value);
         }
 
         private long _uptime;
@@ -101,33 +95,29 @@ namespace KeeneticVpnMaster.Models
         public long Uptime
         {
             get => _uptime;
-            set { _uptime = value; OnPropertyChanged(); }
+            set => SetProperty(ref _uptime, value);
         }
 
-        private WireGuardDetails _wireGuard;
+        private WireGuardDetails _wireGuard = new();
         [JsonPropertyName("wireguard")]
         public WireGuardDetails WireGuard
         {
             get => _wireGuard;
-            set { _wireGuard = value; OnPropertyChanged(); }
+            set => SetProperty(ref _wireGuard, value);
         }
-        
+
         [JsonIgnore]
         public ICommand? ToggleConnectionCommand { get; set; }
     }
 
-    public class WireGuardDetails : INotifyPropertyChanged
+    public class WireGuardDetails : ObservableObject
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null!)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        private string _publicKey;
+        private string _publicKey = string.Empty;
         [JsonPropertyName("public-key")]
         public string PublicKey
         {
             get => _publicKey;
-            set { _publicKey = value; OnPropertyChanged(); }
+            set => SetProperty(ref _publicKey, value);
         }
 
         private int _listenPort;
@@ -135,46 +125,42 @@ namespace KeeneticVpnMaster.Models
         public int ListenPort
         {
             get => _listenPort;
-            set { _listenPort = value; OnPropertyChanged(); }
+            set => SetProperty(ref _listenPort, value);
         }
 
-        private string _status;
+        private string _status = string.Empty;
         [JsonPropertyName("status")]
         public string Status
         {
             get => _status;
-            set { _status = value; OnPropertyChanged(); }
+            set => SetProperty(ref _status, value);
         }
 
-        private List<WireGuardPeerDetails> _peer;
+        private List<WireGuardPeerDetails> _peer = new();
         [JsonPropertyName("peer")]
         public List<WireGuardPeerDetails> Peer
         {
             get => _peer;
-            set { _peer = value; OnPropertyChanged(); }
+            set => SetProperty(ref _peer, value);
         }
     }
 
-    public class WireGuardPeerDetails : INotifyPropertyChanged
+    public class WireGuardPeerDetails : ObservableObject
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null!)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        private string _publicKey;
+        private string _publicKey = string.Empty;
         [JsonPropertyName("public-key")]
         public string PublicKey
         {
             get => _publicKey;
-            set { _publicKey = value; OnPropertyChanged(); }
+            set => SetProperty(ref _publicKey, value);
         }
 
-        private string _remote;
+        private string _remote = string.Empty;
         [JsonPropertyName("remote")]
         public string Remote
         {
             get => _remote;
-            set { _remote = value; OnPropertyChanged(); }
+            set => SetProperty(ref _remote, value);
         }
 
         private int _remotePort;
@@ -182,7 +168,7 @@ namespace KeeneticVpnMaster.Models
         public int RemotePort
         {
             get => _remotePort;
-            set { _remotePort = value; OnPropertyChanged(); }
+            set => SetProperty(ref _remotePort, value);
         }
 
         private long? _rxBytes;
@@ -190,7 +176,7 @@ namespace KeeneticVpnMaster.Models
         public long? RxBytes
         {
             get => _rxBytes;
-            set { _rxBytes = value; OnPropertyChanged(); }
+            set => SetProperty(ref _rxBytes, value);
         }
 
         private long? _txBytes;
@@ -198,7 +184,7 @@ namespace KeeneticVpnMaster.Models
         public long? TxBytes
         {
             get => _txBytes;
-            set { _txBytes = value; OnPropertyChanged(); }
+            set => SetProperty(ref _txBytes, value);
         }
 
         private long? _lastHandshake;
@@ -206,7 +192,7 @@ namespace KeeneticVpnMaster.Models
         public long? LastHandshake
         {
             get => _lastHandshake;
-            set { _lastHandshake = value; OnPropertyChanged(); }
+            set => SetProperty(ref _lastHandshake, value);
         }
 
         private bool _online;
@@ -214,10 +200,7 @@ namespace KeeneticVpnMaster.Models
         public bool Online
         {
             get => _online;
-            set { _online = value; OnPropertyChanged(); }
+            set => SetProperty(ref _online, value);
         }
-
-        // Вычисляемое поле для DataGrid
-        public string PeerAddressPort => $"{Remote}:{RemotePort}";
     }
 }
