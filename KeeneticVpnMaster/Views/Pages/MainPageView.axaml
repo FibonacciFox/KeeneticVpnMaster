@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             xmlns:pages="clr-namespace:KeeneticVpnMaster.ViewModels.Pages"
+             xmlns:ui="clr-namespace:KeeneticVpnMaster.Views.Components.UI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="KeeneticVpnMaster.Views.Pages.MainPageView"
+             x:DataType="pages:MainPageViewModel">
+    <suki:SukiSideMenu>
+        <suki:SukiSideMenu.HeaderContent>
+           
+        </suki:SukiSideMenu.HeaderContent>
+        
+        <suki:SukiSideMenu.Items>
+            <suki:SukiSideMenuItem FontWeight="Bold"  Header="Dashboard" Classes="Compact">
+                <suki:SukiSideMenuItem.Icon>
+                    <avalonia:Icon Value="mdi-view-dashboard" FontSize="14"/> 
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <TextBlock>DasBoard</TextBlock>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+
+            <suki:SukiSideMenuItem FontWeight="Bold" Header="WireGuard" Classes="Compact">
+                <suki:SukiSideMenuItem.Icon>
+                    <avalonia:Icon Value="mdi-key" FontSize="14"/> 
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <ui:WireguardInterfaceBoardView/>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+        </suki:SukiSideMenu.Items>
+        
+        <suki:SukiSideMenuItem FontWeight="Bold" Header="NFQWS" Classes="Compact">
+            <suki:SukiSideMenuItem.Icon>
+                <avalonia:Icon Value="mdi-key" FontSize="14"/> 
+            </suki:SukiSideMenuItem.Icon>
+            <suki:SukiSideMenuItem.PageContent>
+                <TextBlock>content</TextBlock>
+            </suki:SukiSideMenuItem.PageContent>
+        </suki:SukiSideMenuItem>
+        
+        <suki:SukiSideMenuItem Header="Системный журнал" Classes="Compact">
+            <suki:SukiSideMenuItem.Icon>
+                <avalonia:Icon Value="mdi-view-dashboard" FontSize="14"/> 
+            </suki:SukiSideMenuItem.Icon>
+            <suki:SukiSideMenuItem.PageContent>
+                <TextBlock>Content</TextBlock>
+            </suki:SukiSideMenuItem.PageContent>
+        </suki:SukiSideMenuItem>
+        
+        <suki:SukiSideMenu.FooterContent>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button Classes="Basic"
+                        avalonia:Attached.Icon="mdi-github"
+                        FontSize="24"
+                        CommandParameter="https://github.com/kikipoulet/SukiUI"
+                        ToolTip.Tip="Open On GitHub."/>
+            </StackPanel>
+        </suki:SukiSideMenu.FooterContent>
+
+    </suki:SukiSideMenu>
+</UserControl>

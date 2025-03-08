@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:KeeneticVpnMaster.ViewModels.Components.UI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:i="https://github.com/projektanker/icons.avalonia"
+             x:Class="KeeneticVpnMaster.Views.Components.UI.WireguardInterfaceBoardView"
+             x:DataType="ui:WireguardInterfaceBoardViewModel">
+
+    <!-- Устанавливаем контекст данных для ViewModel -->
+    <UserControl.DataContext>
+        <ui:WireguardInterfaceBoardViewModel/>
+    </UserControl.DataContext>
+
+    <!-- Основной контейнер, оформленный в стиле SukiUI -->
+    <suki:GroupBox Margin="20">
+        <suki:GroupBox.Header>
+            <!-- Заголовок блока -->
+            <TextBlock FontSize="24" FontWeight="Bold">Интерфейсы Wireguard</TextBlock>
+        </suki:GroupBox.Header>
+
+        <!-- Основная сетка с разметкой содержимого -->
+        <Grid RowDefinitions="Auto,200 ,Auto">
+            
+            <!-- Информационный блок о WireGuard -->
+            <TextBlock Grid.Row="0"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Top"
+                       MinHeight="50"
+                       TextWrapping="Wrap">
+                WireGuard — это чрезвычайно простой, но быстрый и современный VPN, который использует современную криптографию.
+                Он работает быстрее и качественнее, чем OpenVPN и IKEv2 — протоколы, считающиеся лучшими на сегодняшний день.
+            </TextBlock>
+            
+            <!-- Карточка с таблицей -->
+            <suki:GlassCard Padding="0,10,0,0"
+                            IsAnimated="False"
+                            CornerRadius="0"
+                            Grid.Row="1">
+                
+                <!-- Таблица DataGrid -->
+                <DataGrid AutoGenerateColumns="False"
+                          GridLinesVisibility="All"
+                          ItemsSource="{Binding WireGuardShowInterfaces}"
+                          SelectedItem="{Binding SelectedInterface}"
+                          IsReadOnly="True">
+                    
+                    <!-- Стилизация заголовков таблицы -->
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment"  Value="Center"/> 
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="Padding" Value="20,0,0,0"/>
+                        </Style>
+                        <Style Selector="DataGridRow">
+                            <Setter Property="ContextMenu">
+                                <Setter.Value>
+                                    <ContextMenu>
+                                        <MenuItem Header="Редактировать"
+                                                  i:MenuItem.Icon="mdi-file-edit"
+                                                  Command="{Binding EditCommand}" 
+                                                  CommandParameter="{x:True}"/>
+                                        <MenuItem Header="-" />
+                                        <MenuItem Header="Удалить"
+                                                  i:MenuItem.Icon="mdi-delete-forever"/>
+                                    </ContextMenu>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.Styles>
+
+                    <DataGrid.Columns>
+                        <!-- Колонка "Подключение" с переключателем -->
+                        <DataGridTemplateColumn Header="Подключение" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ToggleSwitch IsChecked="{Binding State, Converter={StaticResource ConnectedStateToBooleanConverter}}" 
+                                                      Command="{Binding ToggleConnectionCommand}" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Description}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Колонка "ID" -->
+                        <DataGridTemplateColumn Header="ID" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Id}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Колонка "Index" -->
+                        <DataGridTemplateColumn Header="Index" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Index}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Колонка "Адрес" -->
+                        <DataGridTemplateColumn Header="Адрес" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding Address}" />
+                                        <TextBlock Text=":" />
+                                        <TextBlock Text="{Binding WireGuard.ListenPort}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Колонка "Статус" с иконками -->
+                        <DataGridTemplateColumn Header="Статус" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <i:Icon FontSize="16"
+                                            HorizontalAlignment="Center"
+                                            Foreground="{Binding Connected, Converter={StaticResource ConnectedToBrushConverter}}"
+                                            Value="{Binding Connected, Converter={StaticResource ConnectedToIconConverter}}"/> 
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Колонка "Получено" -->
+                        <DataGridTemplateColumn Header="Получено" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock HorizontalAlignment="Center"
+                                               Text="{Binding WireGuard.Peer[0].RxBytes,
+                                                Converter={StaticResource BytesToReadableSizeConverter} }" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Колонка "Отправлено" -->
+                        <DataGridTemplateColumn Header="Отправлено" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock HorizontalAlignment="Center" 
+                                               Text="{Binding WireGuard.Peer[0].TxBytes,
+                                               Converter={StaticResource BytesToReadableSizeConverter} }" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Колонка "Адрес и порт пира" -->
+                        <DataGridTemplateColumn Header="Адрес и порт пира" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding WireGuard.Peer[0].Remote}" />
+                                        <TextBlock Text=":" />
+                                        <TextBlock Text="{Binding WireGuard.Peer[0].RemotePort}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Колонка "Uptime" -->
+                        <DataGridTemplateColumn Header="Uptime" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock HorizontalAlignment="Center"
+                                               Text="{Binding WireGuard.Peer[0].LastHandshake,
+                                    Converter={StaticResource LastHandshakeToReadableFormatConverter}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </suki:GlassCard>
+
+            <!-- Кнопки управления -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+                <Button Classes="Basic"> Добавить подключение</Button>
+                <Button Classes="Basic"> Загрузить из файла</Button>
+            </StackPanel>
+
+        </Grid>
+    </suki:GroupBox>
+</UserControl>

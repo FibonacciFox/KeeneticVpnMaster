@@ -1,0 +1,26 @@
+<suki:SukiWindow xmlns="https://github.com/avaloniaui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:vm="using:KeeneticVpnMaster.ViewModels"
+                 xmlns:suki="https://github.com/kikipoulet/SukiUI"
+                 xmlns:i="https://github.com/projektanker/icons.avalonia"
+                 x:Class="KeeneticVpnMaster.Views.KeeneticVpnMaster"
+                 x:DataType="vm:KeeneticVpnMasterViewModel"
+                 Content="{Binding Content}"
+                 Title="Keenetic Vpn Master">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:KeeneticVpnMasterViewModel/>
+    </Design.DataContext>
+    
+    <suki:SukiWindow.LogoContent>
+        <i:Icon Value="app-logo" FontSize="36" />
+    </suki:SukiWindow.LogoContent>
+    
+    <suki:SukiWindow.RightWindowTitleBarControls>
+        <i:Icon Value="{Binding IsDarkTheme, Converter={StaticResource BoolToIconConverter}}" FontSize="16"/>
+        <ToggleSwitch IsChecked="{Binding IsDarkTheme, Mode=TwoWay}"/>
+    </suki:SukiWindow.RightWindowTitleBarControls>
+    
+</suki:SukiWindow>
