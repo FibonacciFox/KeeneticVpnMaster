@@ -20,6 +20,9 @@ namespace KeeneticVpnMaster.Services.Keenetic
     {
         private readonly HttpClient _httpClient;
         private string? _baseUrl;
+        
+        private const string Http = "http://";
+        private const string Https = "https://";
 
         public bool IsAuthenticated { get; private set; }
 
@@ -47,7 +50,7 @@ namespace KeeneticVpnMaster.Services.Keenetic
                 throw new ArgumentException("IP address, username, and password cannot be empty.");
             }
 
-            _baseUrl = $"https://{authConfig.IpAddress}";
+            _baseUrl = $"{Http}{authConfig.IpAddress}";
             IsAuthenticated = false;
 
             try

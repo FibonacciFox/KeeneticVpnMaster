@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Avalonia.Threading;
 using KeeneticVpnMaster.Models;
 using KeeneticVpnMaster.Services.Keenetic;
@@ -24,7 +25,7 @@ namespace KeeneticVpnMaster.ViewModels.Components.UI
             set => this.RaiseAndSetIfChanged(ref _selectedInterface, value);
         }
 
-        public ReactiveCommand<Unit, Unit> EditCommand { get; }
+        public ICommand EditCommand { get; }
 
         private readonly DispatcherTimer _timer;
 
@@ -38,7 +39,15 @@ namespace KeeneticVpnMaster.ViewModels.Components.UI
             _timer.Tick += async (s, e) => await LoadInterfacesAsync();
             _timer.Start();
 
-            EditCommand = ReactiveCommand.CreateFromTask(EditInterfaceAsync);
+            EditCommand = ReactiveCommand.Create(() =>
+            {
+                // Code here will be executed when the button is clicked.
+            });
+
+            this.PropertyChanged += (sender, args) =>
+            {
+                Console.WriteLine(SelectedInterface.InterfaceName);
+            };
         }
 
         private Task EditInterfaceAsync()

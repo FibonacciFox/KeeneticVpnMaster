@@ -28,6 +28,7 @@
             <suki:GlassCard Padding="0,10,0,0" IsAnimated="False" CornerRadius="0" Grid.Row="1">
                 <DataGrid AutoGenerateColumns="False"
                           GridLinesVisibility="All"
+                          CanUserResizeColumns="True"
                           ItemsSource="{Binding WireGuardShowInterfaces}"
                           SelectedItem="{Binding SelectedInterface}"
                           IsReadOnly="True">
