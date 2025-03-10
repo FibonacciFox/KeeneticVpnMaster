@@ -56,8 +56,8 @@
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <Button Classes="Basic"
                         avalonia:Attached.Icon="mdi-github"
-                        FontSize="24"
-                        CommandParameter="https://github.com/kikipoulet/SukiUI"
+                        FontSize="30"
+                        CommandParameter="https://github.com/FibonacciFox/KeeneticVpnMaster"
                         ToolTip.Tip="Open On GitHub."/>
             </StackPanel>
         </suki:SukiSideMenu.FooterContent>

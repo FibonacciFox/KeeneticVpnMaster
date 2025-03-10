@@ -3,11 +3,14 @@ using KeeneticVpnMaster.Services;
 using ReactiveUI;
 using Splat;
 using SukiUI;
+using SukiUI.Dialogs;
 
 namespace KeeneticVpnMaster.ViewModels
 {
     public class KeeneticVpnMasterViewModel : ViewModelBase
     {
+        public ISukiDialogManager? DialogManager { get; } = Locator.Current.GetService<ISukiDialogManager>();
+        
         private object? _content;
         public object? Content
         {
@@ -40,7 +43,7 @@ namespace KeeneticVpnMaster.ViewModels
 
         private void LoadThemeFromConfig()
         {
-            IsDarkTheme = Locator.Current.GetService<AppConfigService>().UserPreferences.ThemeVariant == "Dark";
+            IsDarkTheme = Locator.Current.GetService<AppConfigService>()!.UserPreferences.ThemeVariant == "Dark";
         }
 
         private void SaveThemeToConfig(ThemeVariant themeVariant)

@@ -3,9 +3,10 @@ using System.Text.Json.Serialization;
 using System.Windows.Input;
 using KeeneticVpnMaster.Helpers;
 
+
 namespace KeeneticVpnMaster.Models
 {
-    public class WireGuardShowInterface : ObservableObject
+    public class WireGuardInterfaceInfo : ObservableObject
     {
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
@@ -105,9 +106,11 @@ namespace KeeneticVpnMaster.Models
             get => _wireGuard;
             set => SetProperty(ref _wireGuard, value);
         }
+        
 
         [JsonIgnore]
         public ICommand? ToggleConnectionCommand { get; set; }
+        
     }
 
     public class WireGuardDetails : ObservableObject

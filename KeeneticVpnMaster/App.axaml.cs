@@ -5,9 +5,9 @@ using KeeneticVpnMaster.Services;
 using KeeneticVpnMaster.Services.Keenetic;
 using KeeneticVpnMaster.Services.Navigation;
 using KeeneticVpnMaster.ViewModels;
-using KeeneticVpnMaster.ViewModels.Components.UI;
 using KeeneticVpnMaster.ViewModels.Pages;
 using Splat;
+using SukiUI.Dialogs;
 
 namespace KeeneticVpnMaster
 {
@@ -23,9 +23,9 @@ namespace KeeneticVpnMaster
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 // Регистрируем сервисы в правильном порядке
-                RegisterServices();
+                RegisterAppServices();
 
-                // Получаем `KeeneticVpnMasterViewModel` (он уже создан корректно)
+                // Получаем `KeeneticVpnMasterViewModel`
                 var mainViewModel = Locator.Current.GetService<KeeneticVpnMasterViewModel>();
 
                 var mainWindow = new Views.KeeneticVpnMaster
@@ -38,27 +38,28 @@ namespace KeeneticVpnMaster
             base.OnFrameworkInitializationCompleted();
         }
 
-        private void RegisterServices()
+        private void RegisterAppServices()
         {
             //Регистрируем singleton для AppConfigService
             Locator.CurrentMutable.RegisterLazySingleton(() => AppConfigService.Load(), typeof(AppConfigService));
 
             //Регистрируем singleton для KeeneticService
             Locator.CurrentMutable.RegisterLazySingleton<IKeeneticService>(() => new KeeneticService());
+            
+            //Регистрируем singleton для SukiDialogManager
+            Locator.CurrentMutable.RegisterLazySingleton<ISukiDialogManager >(() => new SukiDialogManager());
 
-            //Создаем `KeeneticVpnMasterViewModel`
+            //Создаем и регистрируем `KeeneticVpnMasterViewModel`
             var mainViewModel = new KeeneticVpnMasterViewModel();
-
-            //Регистрируем его в `Splat`
             Locator.CurrentMutable.RegisterConstant(mainViewModel, typeof(KeeneticVpnMasterViewModel));
+            
 
             //Теперь можно создать `NavigationService`, так как `mainViewModel` уже есть
             var navigationService = new NavigationService(mainViewModel);
 
             //Регистрируем `INavigationService`
             Locator.CurrentMutable.RegisterConstant(navigationService, typeof(INavigationService));
-
-            //Теперь `LoginPageViewModel` получает `INavigationService` корректно
+            
             Locator.CurrentMutable.Register(() => new LoginPageViewModel(
                 Locator.Current.GetService<IKeeneticService>()!,
                 Locator.Current.GetService<AppConfigService>()!,

@@ -66,14 +66,14 @@ namespace KeeneticVpnMaster.Services.Keenetic
         /// Получает информацию об интерфейсах WireGuard.
         /// </summary>
         /// <returns>Коллекция интерфейсов WireGuard.</returns>
-        Task<IEnumerable<WireGuardShowInterface>> GetWireGuardShowInterfacesAsync();
+        Task<IEnumerable<WireGuardInterfaceInfo>> GetWireGuardShowInterfacesAsync();
 
         /// <summary>
         /// Получает информацию об конкретном интерфейсе WireGuard.
         /// </summary>
         /// <param name="interfaceName">Имя интерфейса, например "Wireguard0".</param>
         /// <returns>Объект типа WireGuardShowInterface с данными интерфейса.</returns>
-        Task<WireGuardShowInterface> GetWireGuardShowInterfaceAsync(string interfaceName);
+        Task<WireGuardInterfaceInfo> GetWireGuardShowInterfaceAsync(string interfaceName);
         
         /// <summary>
         /// Включает или отключает указанный интерфейс.

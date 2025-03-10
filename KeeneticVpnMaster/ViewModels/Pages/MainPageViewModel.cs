@@ -8,7 +8,7 @@ public class MainPageViewModel : ViewModelBase
 {
     private readonly IKeeneticService _keeneticService;
 
-    public ObservableCollection<WireGuardShowInterface> WireGuardInterfaces { get; set; } = new ObservableCollection<WireGuardShowInterface>();
+    public ObservableCollection<WireGuardInterfaceInfo> WireGuardInterfaces { get; set; } = new ObservableCollection<WireGuardInterfaceInfo>();
 
     public MainPageViewModel(IKeeneticService keeneticService)
     {

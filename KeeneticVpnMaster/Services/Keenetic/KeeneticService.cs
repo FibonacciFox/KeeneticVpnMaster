@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -211,12 +210,12 @@ namespace KeeneticVpnMaster.Services.Keenetic
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<WireGuardShowInterface>> GetWireGuardShowInterfacesAsync()
+        public async Task<IEnumerable<WireGuardInterfaceInfo>> GetWireGuardShowInterfacesAsync()
         {
             try
             {
                 string jsonResponse = await GetRequestAsync("show/interface");
-                var allInterfaces = JsonSerializer.Deserialize<Dictionary<string, WireGuardShowInterface>>(
+                var allInterfaces = JsonSerializer.Deserialize<Dictionary<string, WireGuardInterfaceInfo>>(
                     jsonResponse,
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
                 );
@@ -231,11 +230,11 @@ namespace KeeneticVpnMaster.Services.Keenetic
             {
                 Console.WriteLine($"Error loading WireGuard interfaces: {ex.Message}");
             }
-            return Enumerable.Empty<WireGuardShowInterface>();
+            return Enumerable.Empty<WireGuardInterfaceInfo>();
         }
 
         /// <inheritdoc/>
-        public async Task<WireGuardShowInterface> GetWireGuardShowInterfaceAsync(string interfaceName)
+        public async Task<WireGuardInterfaceInfo> GetWireGuardShowInterfaceAsync(string interfaceName)
         {
             try
             {
@@ -243,7 +242,7 @@ namespace KeeneticVpnMaster.Services.Keenetic
                 string jsonResponse = await GetRequestAsync($"show/interface/{interfaceName}");
         
                 // Десериализуем полученный JSON в объект WireGuardShowInterface
-                var interfaceInfo = JsonSerializer.Deserialize<WireGuardShowInterface>(
+                var interfaceInfo = JsonSerializer.Deserialize<WireGuardInterfaceInfo>(
                     jsonResponse,
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             

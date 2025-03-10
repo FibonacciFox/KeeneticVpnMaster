@@ -4,6 +4,7 @@
              xmlns:ui="clr-namespace:KeeneticVpnMaster.ViewModels.Components.UI"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:i="https://github.com/projektanker/icons.avalonia"
+             xmlns:thisControl="clr-namespace:KeeneticVpnMaster.Views.Components.UI"
              x:Class="KeeneticVpnMaster.Views.Components.UI.WireguardInterfaceBoardView"
              x:DataType="ui:WireguardInterfaceBoardViewModel">
 
@@ -30,7 +31,6 @@
                           GridLinesVisibility="All"
                           CanUserResizeColumns="True"
                           ItemsSource="{Binding WireGuardShowInterfaces}"
-                          SelectedItem="{Binding SelectedInterface}"
                           IsReadOnly="True">
                     <DataGrid.Styles>
                         <Style Selector="DataGridColumnHeader">
@@ -44,10 +44,18 @@
                                     <ContextMenu>
                                         <MenuItem Header="Редактировать"
                                                   i:MenuItem.Icon="mdi-file-edit"
-                                                  Command="{Binding EditCommand}" />
+                                                  Command="{Binding $parent[thisControl:WireguardInterfaceBoardView].((ui:WireguardInterfaceBoardViewModel)DataContext).EditInterfaceCommand}"
+                                                  CommandParameter="{Binding}" />
+                                        <MenuItem Header="-" />
+                                        <MenuItem Header="Экспортировать в файл"
+                                                  i:MenuItem.Icon="mdi-file-edit"
+                                                  Command="{Binding $parent[thisControl:WireguardInterfaceBoardView].((ui:WireguardInterfaceBoardViewModel)DataContext).EditInterfaceCommand}"
+                                                  CommandParameter="{Binding}" />
                                         <MenuItem Header="-" />
                                         <MenuItem Header="Удалить"
-                                                  i:MenuItem.Icon="mdi-delete-forever"/>
+                                                  i:MenuItem.Icon="mdi-delete-forever"
+                                                  Command="{Binding $parent[thisControl:WireguardInterfaceBoardView].((ui:WireguardInterfaceBoardViewModel)DataContext).RemoveInterfaceCommand}"
+                                                  CommandParameter="{Binding}"/>
                                     </ContextMenu>
                                 </Setter.Value>
                             </Setter>
@@ -114,7 +122,7 @@
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center"
                                                Text="{Binding WireGuard.Peer[0].RxBytes,
-                                                Converter={StaticResource BytesToReadableSizeConverter} }" />
+                                               Converter={StaticResource BytesToReadableSizeConverter} }" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -153,11 +161,12 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </suki:GlassCard>
-
+            
             <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
                 <Button Classes="Basic"> Добавить подключение</Button>
                 <Button Classes="Basic"> Загрузить из файла</Button>
             </StackPanel>
+            
         </Grid>
     </suki:GroupBox>
 </UserControl>

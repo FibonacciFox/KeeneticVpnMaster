@@ -14,6 +14,10 @@
         <vm:KeeneticVpnMasterViewModel/>
     </Design.DataContext>
     
+    <suki:SukiWindow.Hosts>
+        <suki:SukiDialogHost Manager="{Binding DialogManager}"/>
+    </suki:SukiWindow.Hosts>
+    
     <suki:SukiWindow.LogoContent>
         <i:Icon Value="app-logo" FontSize="36" />
     </suki:SukiWindow.LogoContent>
