@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using KeeneticVpnMaster.Services;
@@ -32,6 +33,8 @@ namespace KeeneticVpnMaster
                 {
                     DataContext = mainViewModel
                 };
+                
+                Locator.CurrentMutable.RegisterLazySingleton(() => TopLevel.GetTopLevel(mainWindow), typeof(TopLevel));
 
                 desktop.MainWindow = mainWindow;
             }

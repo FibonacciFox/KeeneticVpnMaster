@@ -164,7 +164,7 @@
             
             <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
                 <Button Classes="Basic"> Добавить подключение</Button>
-                <Button Classes="Basic"> Загрузить из файла</Button>
+                <Button Command="{Binding LoadConfigCommand}" Classes="Basic"> Загрузить из файла</Button>
             </StackPanel>
             
         </Grid>

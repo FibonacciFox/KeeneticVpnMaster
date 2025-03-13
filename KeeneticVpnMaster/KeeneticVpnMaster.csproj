@@ -23,6 +23,8 @@
         <PackageReference Include="Projektanker.Icons.Avalonia" Version="9.6.1" />
         <PackageReference Include="Projektanker.Icons.Avalonia.FontAwesome" Version="9.6.1" />
         <PackageReference Include="Projektanker.Icons.Avalonia.MaterialDesign" Version="9.6.1" />
+
+        <PackageReference Include="ini-parser" Version="2.5.2" />
         
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Include="Avalonia.Diagnostics" Version="11.2.5">

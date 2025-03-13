@@ -49,7 +49,7 @@ namespace KeeneticVpnMaster.Services.Keenetic
                 throw new ArgumentException("IP address, username, and password cannot be empty.");
             }
 
-            _baseUrl = $"{Http}{authConfig.IpAddress}";
+            _baseUrl = $"{Https}{authConfig.IpAddress}";
             IsAuthenticated = false;
 
             try
@@ -285,11 +285,18 @@ namespace KeeneticVpnMaster.Services.Keenetic
         }
         
         /// <inheritdoc/>
+        public async Task<string> CreateInterface(string interfaceName, WireGuardConfigurationInterface wireGuardConfigurationInterface , CancellationToken cancellationToken = default)
+        {
+            return await PostRequestAsync($"interface/{interfaceName}",wireGuardConfigurationInterface, cancellationToken);
+        }
+
+        
+        /// <inheritdoc/>
         public async Task<string> DeleteInterface(string interfaceName, CancellationToken cancellationToken = default)
         {
             return await DeleteRequestAsync($"interface/{interfaceName}", cancellationToken);
         }
-        
+       
         /// <inheritdoc/>
         public async Task<string> SystemConfigurationSaveAsync(CancellationToken cancellationToken = default)
         {

@@ -85,6 +85,15 @@ namespace KeeneticVpnMaster.Services.Keenetic
         Task<string> SetInterfaceStateAsync(string interfaceName, bool up, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Создает указанный интерфейс через Keenetic API.
+        /// </summary>
+        /// <param name="interfaceName">Название интерфейса, который необходимо создать.</param>
+        /// <param name="wireGuardConfigurationInterface">Конфигурация интерфейса.</param>
+        /// <param name="cancellationToken">Токен отмены операции.</param>
+        /// <returns>Строка с ответом от сервера после выполнения операции удаления интерфейса.</returns>
+        Task<string> CreateInterface(string interfaceName, WireGuardConfigurationInterface wireGuardConfigurationInterface, CancellationToken cancellationToken = default);
+        
+        /// <summary>
         /// Удаляет (отключает) указанный интерфейс через Keenetic API.
         /// Отправляет DELETE-запрос на endpoint "interface/{interfaceName}" для удаления интерфейса с заданным именем.
         /// </summary>
