@@ -13,6 +13,7 @@
     <Application.Resources>
         <converters:BoolToIconConverter x:Key="BoolToIconConverter" />
         <converters:ConnectedToIconConverter x:Key="ConnectedToIconConverter" />
+        <converters:ChildrenToIconConverter x:Key="ChildrenToIconConverter"/>
         <converters:ConnectedToBrushConverter x:Key="ConnectedToBrushConverter" />
         <converters:ConnectedStateWireGuardInterfaceToBooleanConverter x:Key="ConnectedStateToBooleanConverter"/>
         <converters:BytesToReadableSizeConverter  x:Key="BytesToReadableSizeConverter"/>

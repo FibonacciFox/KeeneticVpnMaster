@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:KeeneticVpnMaster.ViewModels.Pages"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:i="https://github.com/projektanker/icons.avalonia"
+             xmlns:conv="clr-namespace:KeeneticVpnMaster.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="KeeneticVpnMaster.Views.Pages.StaticRoutesPageView"
+             x:DataType="vm:StaticRoutesPageViewModel">
+
+    <UserControl.Resources>
+        <!-- Объявление конвертера для иконок -->
+        <conv:ChildrenToIconConverter x:Key="ChildrenToIconConverter" />
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <vm:StaticRoutesPageViewModel />
+    </UserControl.DataContext>
+    
+    <suki:GroupBox Margin="20">
+        <suki:GroupBox.Header>
+            <TextBlock FontSize="24" FontWeight="Bold">
+                Менеджер статических маршрутов *в разработке!
+            </TextBlock>
+        </suki:GroupBox.Header>
+        <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="Auto,*">
+            
+            <TextBlock Grid.Row="0"
+                       MinHeight="30"
+                       TextWrapping="Wrap">
+                Парсер актуальных маршрутов с сайта https://iplist.opencck.org/:
+            </TextBlock>
+            
+            <suki:GlassCard Grid.Row="1" Grid.Column="0" Width="300" HorizontalAlignment="Left" IsAnimated="False">
+                <DockPanel>
+                    <!-- Верхняя панель с заголовком и кнопками -->
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBlock Text="Категории:" VerticalAlignment="Center" />
+                        <Button FontSize="20" Classes="Basic" 
+                                i:Attached.Icon="mdi-folder-plus"  
+                                Command="{Binding SelectAllCommand}" 
+                                Margin="60,0,0,0"/>
+                        <Button FontSize="20" Classes="Basic" 
+                                i:Attached.Icon="mdi-folder-remove-outline"  
+                                Command="{Binding DeselectAllCommand}" 
+                                Margin="0,0,0,0"/>
+                        <Button FontSize="20" Classes="Basic" 
+                                i:Attached.Icon="mdi-folder-refresh"  
+                                Command="{Binding UpdateCommand}" 
+                                Margin="0,0,0,0"/>
+                    </StackPanel>
+                    
+                    <!-- Список статических маршрутов -->
+                    <TreeView ItemsSource="{Binding Routes}" Margin="5">
+                        <TreeView.DataTemplates>
+                            <TreeDataTemplate DataType="vm:StaticRouteItemViewModel" ItemsSource="{Binding Children}">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <i:Icon Value="{Binding Children, Converter={StaticResource ChildrenToIconConverter}}" FontSize="18"/>
+                                    <CheckBox IsChecked="{Binding IsChecked}" />
+                                    <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Regular" />
+                                </StackPanel>
+                            </TreeDataTemplate>
+                        </TreeView.DataTemplates>
+                    </TreeView>
+                </DockPanel>
+            </suki:GlassCard>
+            
+            <StackPanel Grid.Row="1" Grid.Column="1" Spacing="20">
+                <!-- Прогресс выполнения (0–100) -->
+                <suki:WaveProgress IsTextVisible="True" Value="{Binding Progress}" />
+                <!-- Выбор интерфейса WireGuard -->
+                <ComboBox ItemsSource="{Binding WireguardInterfaces}" 
+                          SelectedItem="{Binding SelectedInterface}" />
+                <!-- Кнопка установки маршрутов -->
+                <Button Content="Установить отмеченные маршруты на Keenetic" Command="{Binding ApplyCommand}" />
+                <!-- Кнопка удаления маршрутов -->
+                <Button Content="Удалить все маршруты из списка" Command="{Binding DeleteCommand}" />
+            </StackPanel>
+        </Grid>
+    </suki:GroupBox>
+</UserControl>

@@ -39,6 +39,11 @@ namespace KeeneticVpnMaster.Services.Keenetic
         Task AuthenticateAsync(AuthConfig authConfig, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Отправляет POST-запрос к Keenetic API по указанному endpoint с заданными данными.
+        /// </summary>
+        Task<string> PostRequestAsync(string endpoint, object postData, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Отправляет DELETE-запрос на Keenetic-устройство.
         /// </summary>
         /// <param name="endpoint">Конечная точка API.</param>

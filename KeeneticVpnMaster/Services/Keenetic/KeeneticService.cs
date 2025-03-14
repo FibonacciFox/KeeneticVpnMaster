@@ -49,7 +49,7 @@ namespace KeeneticVpnMaster.Services.Keenetic
                 throw new ArgumentException("IP address, username, and password cannot be empty.");
             }
 
-            _baseUrl = $"{Https}{authConfig.IpAddress}";
+            _baseUrl = $"{Http}{authConfig.IpAddress}";
             IsAuthenticated = false;
 
             try
@@ -117,9 +117,7 @@ namespace KeeneticVpnMaster.Services.Keenetic
             }
         }
 
-        /// <summary>
-        /// Отправляет POST-запрос к Keenetic API по указанному endpoint с заданными данными.
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<string> PostRequestAsync(string endpoint, object postData, CancellationToken cancellationToken = default)
         {
             EnsureAuthenticated();

@@ -6,6 +6,7 @@
              xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
              xmlns:pages="clr-namespace:KeeneticVpnMaster.ViewModels.Pages"
              xmlns:ui="clr-namespace:KeeneticVpnMaster.Views.Components.UI"
+             xmlns:view="clr-namespace:KeeneticVpnMaster.Views.Pages"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="KeeneticVpnMaster.Views.Pages.MainPageView"
              x:DataType="pages:MainPageViewModel">
@@ -15,6 +16,7 @@
         </suki:SukiSideMenu.HeaderContent>
         
         <suki:SukiSideMenu.Items>
+            
             <suki:SukiSideMenuItem FontWeight="Bold"  Header="Dashboard" Classes="Compact">
                 <suki:SukiSideMenuItem.Icon>
                     <avalonia:Icon Value="mdi-view-dashboard" FontSize="14"/> 
@@ -32,25 +34,35 @@
                     <ui:WireguardInterfaceBoardView/>
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
+            
+            <suki:SukiSideMenuItem FontWeight="Bold" Header="Статические маршруты" Classes="Compact">
+                <suki:SukiSideMenuItem.Icon>
+                    <avalonia:Icon Value="mdi-routes" FontSize="24"/> 
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <view:StaticRoutesPageView/>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+            
+            <suki:SukiSideMenuItem FontWeight="Bold" Header="NFQWS" Classes="Compact">
+                <suki:SukiSideMenuItem.Icon>
+                    <avalonia:Icon Value="mdi-key" FontSize="14"/> 
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <TextBlock>content</TextBlock>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+        
+            <suki:SukiSideMenuItem Header="Системный журнал" Classes="Compact">
+                <suki:SukiSideMenuItem.Icon>
+                    <avalonia:Icon Value="mdi-view-dashboard" FontSize="14"/> 
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <TextBlock>Content</TextBlock>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+            
         </suki:SukiSideMenu.Items>
-        
-        <suki:SukiSideMenuItem FontWeight="Bold" Header="NFQWS" Classes="Compact">
-            <suki:SukiSideMenuItem.Icon>
-                <avalonia:Icon Value="mdi-key" FontSize="14"/> 
-            </suki:SukiSideMenuItem.Icon>
-            <suki:SukiSideMenuItem.PageContent>
-                <TextBlock>content</TextBlock>
-            </suki:SukiSideMenuItem.PageContent>
-        </suki:SukiSideMenuItem>
-        
-        <suki:SukiSideMenuItem Header="Системный журнал" Classes="Compact">
-            <suki:SukiSideMenuItem.Icon>
-                <avalonia:Icon Value="mdi-view-dashboard" FontSize="14"/> 
-            </suki:SukiSideMenuItem.Icon>
-            <suki:SukiSideMenuItem.PageContent>
-                <TextBlock>Content</TextBlock>
-            </suki:SukiSideMenuItem.PageContent>
-        </suki:SukiSideMenuItem>
         
         <suki:SukiSideMenu.FooterContent>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
